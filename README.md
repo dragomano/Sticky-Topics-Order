@@ -1,6 +1,6 @@
 # Sticky Topics Order
 [![SMF 2.1](https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat)](https://github.com/SimpleMachines/SMF2.1)
-![Hooks only: Yes](https://img.shields.io/badge/Hooks%20only-YES-blue)
+![Hooks only: No](https://img.shields.io/badge/Hooks%20only-NO-red)
 
 * **License:** [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0)
 * **Tested on:** PHP 7.4.28
