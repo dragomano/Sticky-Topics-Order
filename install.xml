@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+	<id>maestrosite:StickyTopicsOrder</id>
+	<version>0.6</version>
+
+	<file name="$sourcedir/Post.php">
+		<!-- reply -->
+		<operation>
+			<search position="replace"><![CDATA[
+		// So you wanna (un)sticky this...let's see.
+		if (isset($_POST['sticky']) && ($_POST['sticky'] == $topic_info['is_sticky'] || !allowedTo('make_sticky')))
+			unset($_POST['sticky']);
+		elseif (isset($_POST['sticky']))
+		{
+			// Did someone (un)sticky this while you were posting?
+			if (isset($_POST['already_sticky']) && $_POST['already_sticky'] != $topic_info['is_sticky'])
+				$post_errors[] = 'topic_' . (empty($topic_info['is_sticky']) ? 'un' : '') . 'sticky';
+		}
+]]></search>
+			<add><![CDATA[
+		// So you wanna (un)sticky this...let's see.
+		if (isset($_POST['sticky']) && ($_POST['sticky'] == (bool) $topic_info['is_sticky'] || !allowedTo('make_sticky')))
+			unset($_POST['sticky']);
+		elseif (isset($_POST['sticky']))
+		{
+			// Did someone (un)sticky this while you were posting?
+			if (isset($_POST['already_sticky']) && $_POST['already_sticky'] != (bool) $topic_info['is_sticky'])
+				$post_errors[] = 'topic_' . (empty($topic_info['is_sticky']) ? 'un' : '') . 'sticky';
+		}
+]]></add>
+		</operation>
+		<!-- edit message -->
+		<operation>
+			<search position="replace"><![CDATA[
+		// Change the sticky status of this topic?
+		if (isset($_POST['sticky']) && (!allowedTo('make_sticky') || $_POST['sticky'] == $topic_info['is_sticky']))
+			unset($_POST['sticky']);
+		elseif (isset($_POST['sticky']))
+		{
+			// Did someone (un)sticky this while you were posting?
+			if (isset($_POST['already_sticky']) && $_POST['already_sticky'] != $topic_info['is_sticky'])
+				$post_errors[] = 'topic_' . (empty($topic_info['locked']) ? 'un' : '') . 'stickied';
+		}
+]]></search>
+			<add><![CDATA[
+		// Change the sticky status of this topic?
+		if (isset($_POST['sticky']) && (!allowedTo('make_sticky') || $_POST['sticky'] == (bool) $topic_info['is_sticky']))
+			unset($_POST['sticky']);
+		elseif (isset($_POST['sticky']))
+		{
+			// Did someone (un)sticky this while you were posting?
+			if (isset($_POST['already_sticky']) && $_POST['already_sticky'] != (bool) $topic_info['is_sticky'])
+				$post_errors[] = 'topic_' . (empty($topic_info['locked']) ? 'un' : '') . 'stickied';
+		}
+]]></add>
+		</operation>
+	</file>
+
+</modification>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
+<package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
+	<id>maestrosite:StickyTopicsOrder</id>
+	<name>Sticky Topics Order</name>
+	<version>0.6</version>
+	<type>modification</type>
+
+	<install for="2.1.*">
+		<require-dir name="Themes" destination="$boarddir">Language files</require-dir>
+		<require-dir name="Sources" destination="$boarddir">Class file</require-dir>
+		<modification>install.xml</modification>
+		<hook hook="integrate_pre_load" function="StickyTopicsOrder::hooks#" file="$sourcedir/Class-StickyTopicsOrder.php" />
+		<redirect url="?action=admin;area=modsettings;sa=sticky_topics_order" timeout="1000" />
+	</install>
+
+	<uninstall for="2.1.*">
+		<modification reverse="true">install.xml</modification>
+		<hook hook="integrate_pre_load" function="StickyTopicsOrder::hooks#" file="$sourcedir/Class-StickyTopicsOrder.php" reverse="true" />
+		<remove-file name="$languagedir/StickyTopicsOrder.english.php" />
+		<remove-file name="$languagedir/StickyTopicsOrder.russian.php" />
+		<remove-file name="$sourcedir/Class-StickyTopicsOrder.php" />
+	</uninstall>
+
+</package-info>
